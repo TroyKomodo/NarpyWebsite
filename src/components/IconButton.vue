@@ -21,6 +21,8 @@ defineProps<{
 
 	box-sizing: border-box;
 
+	transition: color 175ms linear;
+
 	color: var(--theme-text);
 
 	&:hover {
