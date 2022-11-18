@@ -66,7 +66,7 @@ import ImageLayer from "@/components/ImageLayer.vue";
 	max-height: 100%;
 	max-width: 100%;
 
-	overflow: hidden scroll;
+	overflow: hidden auto;
 
 	> :not(:last-child) {
 		margin-bottom: 1rem;
