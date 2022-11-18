@@ -81,11 +81,11 @@ onUnmounted(() => {
 <style scoped lang="scss">
 @keyframes breathing {
 	from {
-		transform: translateX(-8px);
+		transform: translateX(-8px) scale(1);
 	}
 
 	to {
-		transform: translateX(8px);
+		transform: translateX(8px) scale(1.02);
 	}
 }
 
@@ -94,7 +94,7 @@ onUnmounted(() => {
 		position: absolute;
 		inset: -16px;
 
-		animation: 5s ease-in-out infinite alternate breathing;
+		animation: 4s ease-in-out infinite alternate breathing;
 	}
 
 	img {
