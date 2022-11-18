@@ -11,6 +11,7 @@ import {
 	faDiscord,
 	faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
 	faSpotify,
@@ -23,4 +24,5 @@ library.add(
 	faInstagram,
 	faDiscord,
 	faTwitter,
+	faLink,
 );

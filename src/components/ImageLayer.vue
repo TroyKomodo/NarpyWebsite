@@ -1,6 +1,6 @@
 <template>
 	<div class="image-layer">
-		<div class="container">
+		<div class="container" :breathing="breathing">
 			<img
 				:src="src"
 				:srcset="srcset"
@@ -28,9 +28,11 @@ const props = withDefaults(
 		srcset?: string;
 		parallax?: number;
 		blur?: number;
+		breathing?: boolean;
 	}>(),
 	{
 		parallax: 30,
+		breathing: true,
 	},
 );
 
@@ -92,9 +94,13 @@ onUnmounted(() => {
 .image-layer {
 	.container {
 		position: absolute;
-		inset: -16px;
+		inset: 0;
 
-		animation: 4s ease-in-out infinite alternate breathing;
+		&[breathing="true"] {
+			inset: -16px;
+
+			animation: 4s ease-in-out infinite alternate breathing;
+		}
 	}
 
 	img {

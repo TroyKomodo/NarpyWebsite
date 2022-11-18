@@ -1,15 +1,19 @@
 <template>
-	<div class="icon-button" :style="{ '--hover-color': color }" :title="`${name ?? ''}\n${sub ?? ''}`">
-		<FaIcon :icon="icon" />
-	</div>
+	<a class="icon-button" :href="href" :style="{ '--hover-color': color }" :title="`${name ?? ''}\n${sub ?? ''}`">
+		<FontAwesomeIcon :icon="icon" />
+	</a>
 </template>
 
 <script setup lang="ts">
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import type { FontAwesomeIconProps } from "@fortawesome/vue-fontawesome";
+
 defineProps<{
-	icon: string;
+	icon: FontAwesomeIconProps["icon"];
 	color?: string;
 	name?: string;
 	sub?: string;
+	href: string;
 }>();
 </script>
 
@@ -26,7 +30,7 @@ defineProps<{
 	color: var(--theme-text);
 
 	&:hover {
-		color: var(--hover-color);
+		color: var(--hover-color, var(--theme-icon-hover));
 	}
 }
 </style>

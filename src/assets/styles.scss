@@ -1,11 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap");
 
 :root {
 	--theme-text: #fff;
+	--theme-icon-hover: #64ecdf;
 	--theme-card: rgba(0, 0, 0, 0.25);
 
 	color: var(--theme-text);
-	font-family: "Alexandria", sans-serif;
+	font-family: "Montserrat", sans-serif;
 	font-size: 23px;
 
 	@media (max-height: 45rem), (max-width: 30rem) {

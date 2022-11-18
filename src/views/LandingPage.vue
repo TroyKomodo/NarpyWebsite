@@ -1,29 +1,43 @@
 <template>
 	<div class="landing-page">
 		<div class="landing-container">
-			<div class="landing-card landing-main">
-				<h1 class="no-margin">cozy</h1>
+			<div v-if="data.release" class="landing-card landing-main">
+				<h1 class="no-margin">{{ data.release.name }}</h1>
 				<span>out now</span>
-				<div class="content">
-					<img src="/img/background-small.webp" />
+				<div v-if="data.release.body" class="content">
+					<iframe
+						v-if="data.release.body.type === 'yt-embed'"
+						class="yt-embed"
+						:src="`https://www.youtube.com/embed/${data.release.body.video}`"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen
+					></iframe>
 				</div>
 				<h2 class="no-margin">listen</h2>
 				<div class="line"></div>
 				<div class="landing-links main-links">
-					<IconButton icon="fab fa-spotify" color="#1DB954" name="Spotify" />
-					<IconButton icon="fab fa-itunes-note" color="#FF2444" name="Apple Music" />
-					<IconButton icon="fab fa-youtube" color="#FF0000" name="YouTube" />
-					<IconButton icon="fab fa-bandcamp" color="#629AA9" name="BandCamp" />
-					<IconButton icon="fab fa-amazon" color="#FF9900" name="Amazon Music" />
-					<IconButton icon="fab fa-deezer" color="#EF5466" name="Deezer" />
+					<IconButton
+						v-for="(link, i) in transformLinks(data.release.links)"
+						:key="i"
+						:icon="link.icon ? `fab ${link.icon}` : 'fas fa-link'"
+						:color="link.color"
+						:name="link.name"
+						:sub="link.handle"
+						:href="link.link"
+					/>
 				</div>
 			</div>
 			<div class="landing-card landing-links">
-				<IconButton icon="fab fa-youtube" color="#FF0000" name="YouTube" sub="Test User" />
-				<IconButton icon="fab fa-twitch" color="#9146FF" name="Twitch" sub="testuser" />
-				<IconButton icon="fab fa-instagram" color="#F77737" name="Instagram" sub="@TestUser" />
-				<IconButton icon="fab fa-discord" color="#5865F2" name="Discord" sub="TestUser#1234" />
-				<IconButton icon="fab fa-twitter" color="#1DA1F2" name="Twitter" sub="@test_user" />
+				<IconButton
+					v-for="(link, i) in transformLinks(data.links)"
+					:key="i"
+					:icon="link.icon ? `fab ${link.icon}` : 'fas fa-link'"
+					:color="link.color"
+					:name="link.name"
+					:sub="link.handle"
+					:href="link.link"
+				/>
 			</div>
 		</div>
 		<div class="bg-layers">
@@ -40,6 +54,22 @@
 <script setup lang="ts">
 import IconButton from "@/components/IconButton.vue";
 import ImageLayer from "@/components/ImageLayer.vue";
+import { DATA as data } from "@/data/data";
+import { PROVIDERS, type Provider, type ProviderLink } from "@/data/providers";
+
+function transformLinks(links: ProviderLink[]) {
+	return links.map((link) => {
+		const provider: Provider | undefined = PROVIDERS[link.type];
+
+		return {
+			name: provider?.name,
+			icon: provider?.icon,
+			color: provider?.color,
+			handle: link.handle,
+			link: link.link,
+		};
+	});
+}
 </script>
 
 <style scoped lang="scss">
@@ -86,6 +116,8 @@ import ImageLayer from "@/components/ImageLayer.vue";
 		backdrop-filter: blur(15px);
 
 		.line {
+			flex-shrink: 0;
+
 			height: 0.15rem;
 			width: 100%;
 
@@ -100,20 +132,37 @@ import ImageLayer from "@/components/ImageLayer.vue";
 		align-items: center;
 		flex-direction: column;
 
+		overflow: hidden auto;
+
+		min-height: 5rem;
+		min-width: 0;
+
 		width: 25rem;
 
 		.content {
+			min-height: 2rem;
+			min-width: 0;
+
+			flex-shrink: 1;
+
 			width: 100%;
 			height: 100%;
 
 			margin: 2rem 0;
 
-			img {
+			> img {
 				width: 100%;
 				height: 100%;
 
 				object-fit: contain;
 				object-position: center;
+			}
+
+			.yt-embed {
+				width: 100%;
+				height: 100%;
+
+				aspect-ratio: 16 / 9;
 			}
 		}
 	}
@@ -147,7 +196,7 @@ import ImageLayer from "@/components/ImageLayer.vue";
 	}
 
 	.bg-gradient {
-		background: linear-gradient(180deg, rgb(0, 0, 0, 0), rgb(0, 0, 0, 0.8));
+		background: linear-gradient(180deg, rgb(0, 0, 0, 0), rgb(0, 0, 0, 0.6));
 	}
 }
 
