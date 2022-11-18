@@ -5,7 +5,7 @@
 				<h1 class="no-margin">cozy</h1>
 				<span>out now</span>
 				<div class="content">
-					<img src="/img/background.png" />
+					<img src="/img/background-1080.png" />
 				</div>
 				<h2 class="no-margin">listen</h2>
 				<div class="line"></div>
@@ -27,7 +27,11 @@
 			</div>
 		</div>
 		<div class="bg-layers">
-			<ImageLayer src="/img/background.png" :blur="8" />
+			<ImageLayer
+				src="/img/background-1080.png"
+				srcset="/img/background-1080.png 1080w, /img/background-2k.png 1367w, /img/background-4k.png 2050w, /img/background-8k.png 4100w"
+				:blur="8"
+			/>
 			<div class="bg-gradient"></div>
 		</div>
 	</div>

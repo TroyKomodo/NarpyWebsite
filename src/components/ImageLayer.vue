@@ -3,6 +3,7 @@
 		<div class="container">
 			<img
 				:src="src"
+				:srcset="srcset"
 				:style="{
 					filter,
 					transform,
@@ -24,6 +25,7 @@ const FALLOFF_FAC = 0.7;
 const props = withDefaults(
 	defineProps<{
 		src: string;
+		srcset?: string;
 		parallax?: number;
 		blur?: number;
 	}>(),
