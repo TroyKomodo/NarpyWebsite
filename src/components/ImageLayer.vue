@@ -1,16 +1,18 @@
 <template>
 	<div class="image-layer">
-		<img
-			:src="src"
-			:style="{
-				filter,
-				transform,
-				width: outsetSize,
-				height: outsetSize,
-				top: outsetLocation,
-				left: outsetLocation,
-			}"
-		/>
+		<div class="container">
+			<img
+				:src="src"
+				:style="{
+					filter,
+					transform,
+					width: outsetSize,
+					height: outsetSize,
+					top: outsetLocation,
+					left: outsetLocation,
+				}"
+			/>
+		</div>
 	</div>
 </template>
 
@@ -26,7 +28,7 @@ const props = withDefaults(
 		blur?: number;
 	}>(),
 	{
-		parallax: 40,
+		parallax: 30,
 	},
 );
 
@@ -75,11 +77,30 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
+@keyframes breathing {
+	from {
+		transform: translateX(-8px);
+	}
+
+	to {
+		transform: translateX(8px);
+	}
+}
+
 .image-layer {
+	.container {
+		position: absolute;
+		inset: -16px;
+
+		animation: 5s ease-in-out infinite alternate breathing;
+	}
+
 	img {
 		position: absolute;
 		width: 100%;
 		height: 100%;
+
+		transition: transform 100ms ease;
 
 		object-fit: cover;
 		object-position: center;
