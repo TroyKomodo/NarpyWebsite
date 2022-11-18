@@ -7,6 +7,10 @@
 	color: var(--theme-text);
 	font-family: "Alexandria", sans-serif;
 	font-size: 23px;
+
+	@media (max-height: 45rem), (max-width: 30rem) {
+		font-size: 19px;
+	}
 }
 
 h1 {

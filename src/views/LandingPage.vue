@@ -49,7 +49,7 @@ import ImageLayer from "@/components/ImageLayer.vue";
 
 	padding: 3rem;
 
-	@media (max-height: 45rem), (max-width: 25rem) {
+	@media (max-height: 45rem), (max-width: 30rem) {
 		padding: 0;
 	}
 }
