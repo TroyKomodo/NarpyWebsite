@@ -46,6 +46,7 @@
 				srcset="/img/background-small.webp 1025w, /img/background-medium.webp 2050w, /img/background-large.webp 4100w"
 				:blur="4"
 			/>
+			<SnowLayer />
 			<div class="bg-gradient"></div>
 		</div>
 	</div>
@@ -54,6 +55,7 @@
 <script setup lang="ts">
 import IconButton from "@/components/IconButton.vue";
 import ImageLayer from "@/components/ImageLayer.vue";
+import SnowLayer from "@/components/SnowLayer.vue";
 import { DATA as data } from "@/data/data";
 import { PROVIDERS, type Provider, type ProviderLink } from "@/data/providers";
 
