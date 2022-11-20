@@ -32,12 +32,21 @@ const particles: [number, number, number, number][] = [];
 let lastTick = 0;
 
 function init() {
-	particles.length = 0;
+	stopDrawLoop();
 
+	const el = canvas.value;
+	if (!el) return;
+
+	context = el.getContext("2d");
 	if (!context) return;
 
-	const w = context.canvas.width;
-	const h = context.canvas.height;
+	const w = el.clientWidth;
+	const h = el.clientHeight;
+
+	el.width = w;
+	el.height = h;
+
+	particles.length = 0;
 
 	let c = 0;
 
@@ -54,6 +63,8 @@ function init() {
 	}
 
 	lastTick = Date.now() / 1000;
+
+	drawLoop();
 }
 
 function tick() {
@@ -115,19 +126,8 @@ function stopDrawLoop() {
 	drawTimeout = undefined;
 }
 
-function resize() {
-	const el = canvas.value;
-
-	if (!el) return;
-
-	el.width = el.clientWidth;
-	el.height = el.clientHeight;
-
-	init();
-}
-
 const observer = new ResizeObserver(() => {
-	resize();
+	init();
 });
 
 watch(
@@ -135,19 +135,7 @@ watch(
 	(el, old) => {
 		if (old) observer.unobserve(old);
 
-		stopDrawLoop();
-
-		init();
-
-		if (el) {
-			observer.observe(el);
-
-			context = el.getContext("2d");
-		}
-
-		resize();
-
-		drawLoop();
+		if (el) observer.observe(el);
 	},
 	{ immediate: true },
 );
